@@ -1,0 +1,47 @@
+<#
+.SYNOPSIS
+    This script Configures the system to disable IPv6 source routing protects against spoofing.
+.NOTES
+    Author          : Jeffrey Frye
+    LinkedIn        : https://www.linkedin.com/in/jeffrey-frye-12a95ba2/
+    GitHub          : github.com/JFrye2Fly
+    Date Created    : 2025-04-30
+    Last Modified   : 2024-04-30
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000070 
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
+#>
+
+# Define registry path and value details
+$regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
+$valueName = "DisableIpSourceRouting"
+$desiredValue = 2
+
+# Check if the key exists
+if (-not (Test-Path $regPath)) {
+    Write-Output "Registry path does not exist. Creating it..."
+    New-Item -Path $regPath -Force | Out-Null
+}
+
+# Get current value
+$currentValue = Get-ItemProperty -Path $regPath -Name $valueName -ErrorAction SilentlyContinue | Select-Object -ExpandProperty $valueName -ErrorAction SilentlyContinue
+
+# Check if the value needs to be set or corrected
+if ($null -eq $currentValue -or $currentValue -ne $desiredValue) {
+    Write-Output "Setting $valueName to $desiredValue..."
+    Set-ItemProperty -Path $regPath -Name $valueName -Value $desiredValue -Type DWord
+} else {
+    Write-Output "$valueName is already set to $desiredValue."
+}
