@@ -25,3 +25,17 @@
     PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
 #>
 
+# Disable PowerShell v2 features if they are enabled
+$features = @("MicrosoftWindowsPowerShellV2", "MicrosoftWindowsPowerShellV2Root")
+
+foreach ($feature in $features) {
+    $status = Get-WindowsOptionalFeature -Online -FeatureName $feature
+    if ($status.State -eq "Enabled") {
+        Write-Output "Disabling feature: $feature"
+        Disable-WindowsOptionalFeature -Online -FeatureName $feature -NoRestart
+    } else {
+        Write-Output "$feature is already disabled."
+    }
+}
+
+Write-Output "Remediation complete. A restart may be required for changes to take effect."
