@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    This PowerShell script ensures that Inactivity Timer is set to 15 minutes max.
+    This PowerShell script ensures that Windows Remote Management (WinRM) service cannot send passwords in plain text.
 
 .NOTES
     Author          : Jeffrey Frye
