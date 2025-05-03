@@ -7,8 +7,28 @@
     HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client\AllowUnencryptedTraffic = 0
 
 .NOTES
+    Author          : Jeffrey Frye
+    LinkedIn        : https://www.linkedin.com/in/jeffrey-frye-12a95ba2/
+    GitHub          : github.com/JFrye2Fly
+    Date Created    : 2025-05-03
+    Last Modified   : 2024-05-03
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000335
     - Must be run as Administrator
     - May require a WinRM or system restart to take full effect
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
 #>
 
 $regPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client"
